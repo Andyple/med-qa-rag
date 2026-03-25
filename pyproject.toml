@@ -1,0 +1,35 @@
+[project]
+name = "medical-rag"
+version = "0.1.0"
+description = "RAG system over PubMed abstracts with uncertainty quantification"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "langchain>=0.1.0",
+    "chromadb>=0.4.0",
+    "openai>=1.10.0",
+    "spacy>=3.7.0",
+    "fastapi>=0.109.0",
+    "uvicorn>=0.27.0",
+    "pydantic-settings>=2.1.0",
+    "python-dotenv>=1.0.0",
+    "transformers>=4.37.0",
+    "torch>=2.2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.2.0",
+    "mypy>=1.8.0",
+    "black>=24.1.0",
+]
+
+[tool.ruff]
+select = ["E", "F", "I", "N"]
+ignore = []
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+ignore_missing_imports = true
