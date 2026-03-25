@@ -3,7 +3,7 @@ import requests
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import Optional
 
-
+# Load environment variables from .env file if it exists
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env", env_file_encoding="utf-8", extra="ignore"
