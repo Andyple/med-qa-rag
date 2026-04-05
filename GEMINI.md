@@ -20,7 +20,10 @@ medical-rag/
 │   └── medical_rag/
 │       ├── main.py        # MVP entry point
 │       ├── config.py      # Configuration & thresholds
-│       └── core/          # Core RAG components (ingestion, retrieval, etc.)
+│       └── core/          # Core RAG components
+│           ├── ingestion.py   # Person 1: Fetching & Chunking
+│           ├── retrieval.py   # Person 2: Retrieve & Generate
+│           └── attribution.py # Person 3: NLI & Uncertainty
 └── tests/                 # Unit & integration tests
 ```
 
