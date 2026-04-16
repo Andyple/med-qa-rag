@@ -3,14 +3,14 @@ from medical_rag.config import settings
 
 """
 RELATIONSHIPS:
-- Uses: calls `VectorStoreManager` (from ingestion.py) to search for context.
+- Uses: calls `VectorStoreManager` (from data_pipeline.py) to search for context.
 - Used By: The main script (`main.py`) or the API layer (`api.py`) to answer questions.
 - Data Flow: 
-    1. User Query -> Search (retrieval.py)
-    2. Results -> Prompt Builder (retrieval.py)
-    3. Answer -> Verification (attribution.py)
+    1. User Query -> Search (rag_engine.py)
+    2. Results -> Prompt Builder (rag_engine.py)
+    3. Answer -> Verification (confidence.py)
 - Data Contract: Must return the *exact chunks* used to answer the question, as 
-  `attribution.py` needs them to verify the claims.
+  `confidence.py` needs them to verify the claims.
 """
 
 class RAGOrchestrator:

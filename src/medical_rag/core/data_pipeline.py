@@ -6,9 +6,9 @@ RELATIONSHIPS:
 - Used By: This script is typically run as a standalone "ingestion job" or called by a 
   setup script to populate the database.
 - Outputs To: The `VectorStoreManager` here creates the ChromaDB collection that 
-  `retrieval.py` will later search through.
+  `rag_engine.py` will later search through.
 - Data Contract: Must provide clean, chunked strings and consistent metadata 
-  (like PubMed IDs) so the Trust Lead (attribution.py) can trace facts back to sources.
+  (like PubMed IDs) so the Trust Lead (confidence.py) can trace facts back to sources.
 """
 
 class PubMedIngestor:

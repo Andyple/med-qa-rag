@@ -3,17 +3,17 @@ from medical_rag.config import settings
 
 """
 RELATIONSHIPS:
-- Uses: Takes inputs from `retrieval.py` (the Answer + the Chunks).
+- Uses: Takes inputs from `rag_engine.py` (the Answer + the Chunks).
 - Used By: The final RAG pipeline to "grade" the LLM's answer before showing it.
 - Data Flow: 
-    1. Answer (from retrieval.py) -> Claim Splitter
-    2. Each Claim -> NLI Scorer (against chunks from retrieval.py)
+    1. Answer (from rag_engine.py) -> Claim Splitter
+    2. Each Claim -> NLI Scorer (against chunks from rag_engine.py)
     3. Scores -> UncertaintyAggregator -> Final Confidence.
 - Data Contract: Must return a structured report showing which sentences in the 
   answer are backed by evidence and which aren't.
 """
 
-class AttributionModel:
+class ConfidenceEvaluator:
     """
     Step 1: The "Fact Checker".
     """
