@@ -13,25 +13,33 @@ RELATIONSHIPS:
   `confidence.py` needs them to verify the claims.
 """
 
+from medical_rag.core.data_pipeline import VectorStoreManager
+
 class RAGOrchestrator:
     """
     Step 1: The "Searcher" & "Answerer".
     """
     def __init__(self):
         """
-        TODO: Initialize Connection to local llama-server.
-        - Dependency: Use 'langchain_openai' (configured for local URL) or 'openai' directly.
-        - Setup: Set model_name via settings.get_actual_llm_model().
+        Initialize Connection to local llama-server and ChromaDB.
         """
-        pass
+        self.vsm = VectorStoreManager()
+        # Additional setup for LLM will go here
 
     def retrieve_context(self, query: str, k: int = 5) -> List[Dict[str, Any]]:
         """
-        TODO: Implement search against the ChromaDB.
-        - Call: Use VectorStoreManager's search method.
-        - Results: Must include the 'text' of the chunk and its 'similarity_score'.
+        Implement search against the ChromaDB.
         """
-        pass
+        results = self.vsm.vector_store.similarity_search_with_relevance_scores(query, k=k)
+        
+        context_chunks = []
+        for doc, score in results:
+            context_chunks.append({
+                "text": doc.page_content,
+                "metadata": doc.metadata,
+                "similarity_score": score
+            })
+        return context_chunks
 
     def generate_answer(self, query: str, context_chunks: List[str]) -> str:
         """

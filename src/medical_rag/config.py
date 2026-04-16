@@ -20,6 +20,10 @@ class Settings(BaseSettings):
     embedding_base_url: str = "http://localhost:8081/v1"
     embedding_model: str = "embeddinggemma-300m"
 
+    # ChromaDB
+    chroma_db_path: str = "data/chroma_db"
+    collection_name: str = "medical_abstracts"
+
     # API Key for local (if needed)
     openai_api_key: str = "not-needed"
 

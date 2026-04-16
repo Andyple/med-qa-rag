@@ -38,22 +38,31 @@ class PubMedIngestor:
         """
         pass
 
+from langchain_openai import OpenAIEmbeddings
+from langchain_community.vectorstores import Chroma
+
 class VectorStoreManager:
     """
     Step 2: The "Librarian". Stores chunks so they can be searched by meaning.
     """
     def __init__(self):
         """
-        TODO: Initialize ChromaDB.
-        - Connection: Use settings.embedding_base_url to talk to your local 'embeddinggemma' server.
-        - Collection: Create/Get a collection named 'medical_abstracts'.
+        Initialize ChromaDB with local embeddings.
         """
-        pass
+        self.embeddings = OpenAIEmbeddings(
+            base_url=settings.embedding_base_url,
+            model=settings.embedding_model,
+            openai_api_key=settings.openai_api_key  # Usually not needed for local
+        )
+        self.vector_store = Chroma(
+            collection_name=settings.collection_name,
+            embedding_function=self.embeddings,
+            persist_directory=settings.chroma_db_path
+        )
 
-    def add_documents(self, chunks: List[str], metadata: List[Dict[str, Any]]) -> None:
+    def add_documents(self, chunks: List[str], metadatas: List[Dict[str, Any]]) -> None:
         """
-        TODO: The Bridge to Retrieval.
-        - Process: Take the list of strings from PubMedIngestor, turn them into 
-          vectors (embeddings), and save them to disk in ChromaDB.
+        Add documents to ChromaDB.
         """
-        pass
+        self.vector_store.add_texts(texts=chunks, metadatas=metadatas)
+        # Note: Chroma >= 0.4.x persists automatically, but we ensure it's handled if needed.
